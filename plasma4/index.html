@@ -1,0 +1,3681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlasmaVision | The Liquid Gold in Your Veins</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #c00;
+            --primary-dark: #900;
+            --primary-light: #f44;
+            --secondary: #0066cc;
+            --accent: #ffcc00;
+            --light: #f8f8f8;
+            --dark: #1a1a2e;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --gray: #6c757d;
+            --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, #004499 100%);
+            --gradient-hero: linear-gradient(135deg, rgba(192, 0, 0, 0.8) 0%, rgba(26, 26, 46, 0.9) 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.2);
+            --glow: 0 0 20px #c0000066;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(192, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 102, 204, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 204, 0, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Animated Background Elements */
+        .floating-cells {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-cell {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-cell.red {
+            background: radial-gradient(circle, #DC2626, #8B0000);
+        }
+
+        .floating-cell.white {
+            background: radial-gradient(circle, #FFFFFF, #F0F0F0);
+        }
+
+        .floating-cell.platelet {
+            background: radial-gradient(circle, #D97706, #B45309);
+        }
+
+        /* Navigation */
+        nav.navbar {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand .pulse {
+            animation: pulse 2s infinite;
+            font-size: 2rem;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            padding: 8px 15px !important;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+            background: rgba(192, 0, 0, 0.2);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 80%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        #heroVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-hero);
+            z-index: -1;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, white, #ffcccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 204, 0, 0.3);
+            z-index: -1;
+            border-radius: 5px;
+        }
+
+        .typed-text {
+            display: inline-block;
+        }
+
+        .cursor {
+            display: inline-block;
+            background-color: var(--accent);
+            margin-left: 0.1rem;
+            width: 3px;
+            animation: blink 1s infinite;
+        }
+
+        .hero-text {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover), var(--glow);
+        }
+
+        .btn-outline-light {
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            color: white;
+            background: transparent;
+        }
+
+        .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-visualization {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            perspective: 1000px;
+        }
+
+        .blood-stream {
+            width: 350px;
+            height: 600px;
+            position: relative;
+            background: linear-gradient(90deg, rgba(192, 0, 0, 0.1) 0%, rgba(192, 0, 0, 0.3) 100%);
+            border-radius: 175px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg) rotateY(-10deg);
+            box-shadow: 
+                inset 0 0 50px rgba(192, 0, 0, 0.5),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: streamRotate 20s infinite linear;
+        }
+
+        .plasma-liquid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(192, 0, 0, 0.3) 0%, rgba(255, 100, 100, 0.5) 100%);
+            animation: flow 3s infinite linear;
+        }
+
+        .blood-cell {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .blood-cell.red {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #DC2626, #8B0000);
+        }
+
+        .blood-cell.white {
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle, #FFFFFF, #F0F0F0);
+        }
+
+        .blood-cell.platelet {
+            width: 30px;
+            height: 15px;
+            border-radius: 15px;
+            background: radial-gradient(circle, #D97706, #B45309);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+        }
+
+        .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid white;
+            border-radius: 15px;
+            position: relative;
+            margin: 0 auto 10px;
+        }
+
+        .wheel {
+            width: 4px;
+            height: 10px;
+            background: white;
+            border-radius: 2px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+
+        .arrow {
+            width: 12px;
+            height: 12px;
+            border-right: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(45deg);
+            margin: 0 auto;
+            animation: arrow 2s infinite;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 6px;
+            background: var(--gradient-primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+            box-shadow: var(--glow);
+        }
+
+        /* Science Section */
+        .science-section {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 50px;
+            padding: 70px 50px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .science-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .science-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .science-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-hover), var(--glow);
+            border-color: rgba(192, 0, 0, 0.3);
+        }
+
+        .science-card-icon {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .science-card-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: var(--transition);
+        }
+
+        .science-card:hover .science-card-icon::before {
+            transform: translateX(100%);
+        }
+
+        .science-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .science-card h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .science-card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .science-card ul {
+            color: rgba(255, 255, 255, 0.8);
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .science-card li {
+            margin-bottom: 10px;
+        }
+
+        /* Composition Section */
+        .composition-section {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 50px;
+            padding: 70px 50px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .composition-chart {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .composition-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .composition-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            transition: var(--transition);
+        }
+
+        .composition-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .composition-item h4 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .composition-item p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        /* Games Section */
+        .games-section {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 50px;
+            padding: 70px 50px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-hover), var(--glow);
+            border-color: rgba(192, 0, 0, 0.3);
+        }
+
+        .game-card-icon {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: var(--transition);
+        }
+
+        .game-card:hover .game-card-icon::before {
+            transform: translateX(100%);
+        }
+
+        .game-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-card h3 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .game-card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .game-card-difficulty {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .difficulty-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .difficulty-dot.active {
+            background-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Game Sections */
+        .game-section {
+            background: rgba(26, 26, 46, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            display: none;
+            position: relative;
+            min-height: 700px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .active-section {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-title {
+            color: white;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+        }
+
+        .game-title i {
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+
+        .back-button:hover {
+            background: rgba(192, 0, 0, 0.3);
+            transform: translateX(-5px);
+        }
+
+        /* Game Container Styles */
+        .game-container {
+            min-height: 600px;
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow);
+        }
+        
+        /* Memory Game Styles */
+        .memory-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .memory-card {
+            height: 160px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .memory-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .memory-card.flipped .memory-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched .memory-card-inner {
+            transform: rotateY(180deg);
+            box-shadow: 0 0 25px var(--success);
+        }
+
+        .memory-card-front, .memory-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        .memory-card-front {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .memory-card-front i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .memory-card-back {
+            background: white;
+            color: var(--dark);
+            transform: rotateY(180deg);
+            border: 3px solid var(--primary);
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .memory-card-back.component {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        }
+
+        .memory-card-back.function {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        }
+
+        .memory-progress {
+            width: 100%;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 30px 0;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .memory-progress-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 2s infinite linear;
+        }
+
+        /* Sorter Game Styles */
+        .sorter-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .sorter-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: move;
+            transition: var(--transition);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .sorter-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .sorter-item.dragging {
+            opacity: 0.5;
+            border-color: var(--primary);
+        }
+        
+        .sorter-item.correct {
+            border-color: var(--success);
+            background: rgba(40, 167, 69, 0.1);
+        }
+        
+        .sorter-item.incorrect {
+            border-color: var(--danger);
+            background: rgba(220, 53, 69, 0.1);
+        }
+        
+        .sorter-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Blood Type Game Styles */
+        .blood-type-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .blood-type-question {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .blood-type-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .blood-type-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .blood-type-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+        
+        .blood-type-option.selected {
+            border: 2px solid var(--primary);
+            background: rgba(192, 0, 0, 0.2);
+        }
+        
+        .blood-type-option.correct {
+            border: 2px solid var(--success);
+            background: rgba(40, 167, 69, 0.2);
+        }
+        
+        .blood-type-option.incorrect {
+            border: 2px solid var(--danger);
+            background: rgba(220, 53, 69, 0.2);
+        }
+
+        /* Detailed Feedback Styles */
+        .feedback-container {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            display: none;
+        }
+        
+        .feedback-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .feedback-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feedback-title.correct {
+            color: var(--success);
+        }
+        
+        .feedback-title.incorrect {
+            color: var(--danger);
+        }
+        
+        .feedback-explanation {
+            line-height: 1.6;
+        }
+        
+        /* Quiz Game Styles */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quiz-question {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .quiz-option.selected {
+            background: rgba(192, 0, 0, 0.2);
+            border: 1px solid var(--primary);
+        }
+        
+        .quiz-option.correct {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid var(--success);
+        }
+        
+        .quiz-option.incorrect {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid var(--danger);
+        }
+        
+        /* Scenario Game Styles */
+        .scenario-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .scenario-text {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .scenario-choices {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .scenario-choice {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .scenario-choice:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+        
+        .scenario-feedback {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            display: none;
+        }
+        
+        .scenario-feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Adventure Game Styles */
+        .adventure-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .adventure-story {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            min-height: 200px;
+        }
+        
+        .adventure-choices {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .adventure-choice {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .adventure-choice:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+        
+        /* Game Navigation */
+        .game-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        /* Timer Styles */
+        .timer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin: 30px 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        /* Results Screen */
+        .results-screen {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .results-screen.show {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 20px 0;
+        }
+        
+        .results-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: rgba(26, 26, 46, 0.95);
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: var(--shadow-hover);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: white;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); }
+            100% { text-shadow: 2px 2px 20px rgba(192, 0, 0, 0.7); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            100% { transform: translateX(-50%) translateY(20px); opacity: 0; }
+        }
+
+        @keyframes arrow {
+            0% { transform: rotate(45deg) translateY(0); opacity: 1; }
+            100% { transform: rotate(45deg) translateY(15px); opacity: 0; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes proteinFloat {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
+        }
+
+        @keyframes streamRotate {
+            0% { transform: rotateX(10deg) rotateY(-10deg); }
+            50% { transform: rotateX(12deg) rotateY(-8deg); }
+            100% { transform: rotateX(10deg) rotateY(-10deg); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .science-section, .composition-section, .games-section {
+                margin: 30px;
+                padding: 50px 30px;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .science-section, .composition-section, .games-section {
+                margin: 20px;
+                padding: 40px 20px;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .science-grid, .game-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .memory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .game-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            
+            .game-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .blood-type-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .memory-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sorter-item {
+                padding: 15px;
+            }
+            
+            .game-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="floating-cells">
+        <!-- Generated by JavaScript -->
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <span class="pulse">🩸</span> PlasmaVision
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link active" href="#home">Home</a>
+                    <a class="nav-link" href="#science">Science</a>
+                    <a class="nav-link" href="#composition">Composition</a>
+                    <a class="nav-link" href="#games">Educational Games</a>
+                    <a class="nav-link" href="#medical">Medical Use</a>
+                    <a class="nav-link" href="#donation">Donation</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enhanced Hero Section with Video Background -->
+    <section id="home" class="hero">
+        <div class="video-background">
+            <video autoplay muted loop id="heroVideo">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-red-blood-cells-flowing-through-a-vein-41657-large.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h1 class="hero-title" id="animatedTitle">Blood Plasma</h1>
+                    <h2 class="hero-subtitle">The <span class="highlight typed-text"></span><span class="cursor">|</span></h2>
+                    <p class="hero-text">Discover the incredible scientific journey of plasma - the liquid gold that sustains life, fights diseases, and saves millions.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="scrollToSection('science')">
+                            <i class="fas fa-flask"></i> Explore Science
+                        </button>
+                        <button class="btn btn-outline-light" onclick="playScienceVideo()">
+                            <i class="fas fa-play"></i> Watch Introduction
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="hero-visualization">
+                        <div class="blood-stream">
+                            <div class="plasma-liquid"></div>
+                            <div class="blood-cell red" data-tooltip="Red Blood Cell"></div>
+                            <div class="blood-cell white" data-tooltip="White Blood Cell"></div>
+                            <div class="blood-cell platelet" data-tooltip="Platelet"></div>
+                            <div class="blood-cell red" data-tooltip="Red Blood Cell"></div>
+                            <div class="blood-cell white" data-tooltip="White Blood Cell"></div>
+                            <div class="blood-cell platelet" data-tooltip="Platelet"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- Science of Plasma Section -->
+    <section id="science" class="science-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">The Science of Blood Plasma</h2>
+            
+            <div class="science-grid">
+                <!-- What is Plasma -->
+                <div class="science-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="science-card-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="science-card-content">
+                        <h3>What is Plasma?</h3>
+                        <p>Blood plasma is the liquid component of blood, making up about 55% of total blood volume. It's a straw-colored fluid that serves as the transportation medium for blood cells, nutrients, hormones, and waste products.</p>
+                        <p>Scientifically, plasma is the extracellular fluid of blood, distinguished from serum by containing fibrinogen and other clotting factors.</p>
+                        <ul>
+                            <li><strong>Volume:</strong> Approximately 3 liters in average adult</li>
+                            <li><strong>pH:</strong> 7.35-7.45 (slightly alkaline)</li>
+                            <li><strong>Density:</strong> 1.025 g/mL</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Plasma Functions -->
+                <div class="science-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="science-card-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="science-card-content">
+                        <h3>Key Functions</h3>
+                        <p>Plasma performs several critical physiological functions that are essential for maintaining homeostasis:</p>
+                        <ul>
+                            <li><strong>Transport Medium:</strong> Carries nutrients, hormones, proteins, and waste products throughout the body</li>
+                            <li><strong>Osmotic Regulation:</strong> Maintains proper fluid balance between blood and tissues</li>
+                            <li><strong>pH Buffer:</strong> Helps maintain blood pH through bicarbonate and protein buffers</li>
+                            <li><strong>Immunity:</strong> Contains antibodies and complement proteins for immune defense</li>
+                            <li><strong>Coagulation:</strong> Provides clotting factors to prevent excessive bleeding</li>
+                            <li><strong>Temperature Regulation:</strong> Distributes heat throughout the body</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Plasma Production -->
+                <div class="science-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="science-card-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="science-card-content">
+                        <h3>Production & Regulation</h3>
+                        <p>Plasma is continuously produced and regulated through complex physiological processes:</p>
+                        <ul>
+                            <li><strong>Origin:</strong> Primarily from absorption in the intestines and production in the liver</li>
+                            <li><strong>Water Content:</strong> Regulated by thirst mechanism and ADH (antidiuretic hormone)</li>
+                            <li><strong>Protein Synthesis:</strong> Most plasma proteins (except immunoglobulins) are produced in the liver</li>
+                            <li><strong>Electrolyte Balance:</strong> Maintained by kidneys, hormones (aldosterone), and dietary intake</li>
+                            <li><strong>Turnover Rate:</strong> Plasma proteins have half-lives ranging from hours to weeks</li>
+                        </ul>
+                        <p>The body can regenerate plasma volume within 24-48 hours after donation, much faster than red blood cells (4-6 weeks).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Composition Section -->
+    <section id="composition" class="composition-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Plasma Composition</h2>
+            
+            <div class="composition-chart" data-aos="fade-up">
+                <h3 class="text-center mb-4">Detailed Composition of Human Plasma</h3>
+                <canvas id="plasmaCompositionChart"></canvas>
+            </div>
+            
+            <div class="composition-details">
+                <!-- Water -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="100">
+                    <h4>Water (91-92%)</h4>
+                    <p>The primary component of plasma, serving as the solvent for all other constituents. Water enables the transport of nutrients, hormones, and waste products throughout the body.</p>
+                    <p><strong>Scientific Note:</strong> The high water content allows plasma to function as an effective heat distributor and provides the medium for all biochemical reactions in blood.</p>
+                </div>
+
+                <!-- Proteins -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Proteins (7-8%)</h4>
+                    <p>Plasma contains over 100 different proteins with diverse functions:</p>
+                    <ul>
+                        <li><strong>Albumin (60%):</strong> Maintains osmotic pressure and transports hormones, fatty acids, and drugs</li>
+                        <li><strong>Globulins (35%):</strong> Includes immunoglobulins (antibodies) and transport proteins</li>
+                        <li><strong>Fibrinogen (4%):</strong> Essential for blood clotting</li>
+                        <li><strong>Regulatory Proteins (1%):</strong> Enzymes, proenzymes, hormones</li>
+                    </ul>
+                    <p><strong>Scientific Data:</strong> Total protein concentration is approximately 6-8 g/dL in healthy adults.</p>
+                </div>
+
+                <!-- Electrolytes -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="300">
+                    <h4>Electrolytes & Minerals</h4>
+                    <p>Essential ions that maintain osmotic balance, pH, and nerve function:</p>
+                    <ul>
+                        <li><strong>Sodium (Na+):</strong> 135-145 mEq/L - Primary extracellular cation</li>
+                        <li><strong>Potassium (K+):</strong> 3.5-5.0 mEq/L - Critical for nerve and muscle function</li>
+                        <li><strong>Calcium (Ca2+):</strong> 8.5-10.5 mg/dL - Blood clotting and muscle contraction</li>
+                        <li><strong>Chloride (Cl-):</strong> 98-106 mEq/L - Major extracellular anion</li>
+                        <li><strong>Bicarbonate (HCO3-):</strong> 22-26 mEq/L - Key pH buffer</li>
+                    </ul>
+                </div>
+
+                <!-- Nutrients -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="400">
+                    <h4>Nutrients & Metabolites</h4>
+                    <p>Plasma transports various nutrients and metabolic products:</p>
+                    <ul>
+                        <li><strong>Glucose:</strong> 70-110 mg/dL - Primary energy source</li>
+                        <li><strong>Lipids:</strong> Cholesterol, triglycerides, phospholipids</li>
+                        <li><strong>Amino Acids:</strong> Building blocks for proteins</li>
+                        <li><strong>Vitamins:</strong> Both water-soluble and fat-soluble (bound to carriers)</li>
+                        <li><strong>Nitrogenous Wastes:</strong> Urea, creatinine, uric acid</li>
+                        <li><strong>Hormones:</strong> Chemical messengers from endocrine glands</li>
+                    </ul>
+                </div>
+
+                <!-- Gases -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="500">
+                    <h4>Dissolved Gases</h4>
+                    <p>While most oxygen and carbon dioxide are transported by red blood cells, some is dissolved directly in plasma:</p>
+                    <ul>
+                        <li><strong>Oxygen (O2):</strong> 0.3 mL/100 mL blood - Small amount dissolved in plasma</li>
+                        <li><strong>Carbon Dioxide (CO2):</strong> 2.5-3.0 mL/100 mL blood - Transported as bicarbonate (70%), carbamino compounds (23%), and dissolved CO2 (7%)</li>
+                        <li><strong>Nitrogen (N2):</strong> Inert gas at equilibrium with air</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Games Section -->
+    <section id="games" class="games-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Blood Donation Educational Games</h2>
+            
+            <div class="game-grid">
+                <!-- Plasma Component Match -->
+                <div class="game-card" onclick="showGame('memory-game')" data-aos="fade-up" data-aos-delay="100">
+                    <div class="game-card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="game-card-content">
+                        <h3>Plasma Component Match</h3>
+                        <p>Match blood components with their functions in this memory game. Test your knowledge of blood biology.</p>
+                        <div class="game-card-difficulty">
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Donation Process Sorter -->
+                <div class="game-card" onclick="showGame('sorter-game')" data-aos="fade-up" data-aos-delay="200">
+                    <div class="game-card-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="game-card-content">
+                        <h3>Donation Process Sorter</h3>
+                        <p>Arrange the steps of blood donation in the correct order. Learn what happens during donation.</p>
+                        <div class="game-card-difficulty">
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plasma Adventure -->
+                <div class="game-card" onclick="showGame('adventure-game')" data-aos="fade-up" data-aos-delay="300">
+                    <div class="game-card-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="game-card-content">
+                        <h3>Plasma Adventure</h3>
+                        <p>Make decisions in medical scenarios in this choose-your-own-adventure game. Experience real donation situations.</p>
+                        <div class="game-card-difficulty">
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot active"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blood Type Compatibility -->
+                <div class="game-card" onclick="showGame('blood-type-game')" data-aos="fade-up" data-aos-delay="400">
+                    <div class="game-card-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="game-card-content">
+                        <h3>Blood Type Compatibility</h3>
+                        <p>Test your knowledge of which blood types can donate to and receive from others. Critical for medical professionals.</p>
+                        <div class="game-card-difficulty">
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Donation Quiz -->
+                <div class="game-card" onclick="showGame('quiz-game')" data-aos="fade-up" data-aos-delay="500">
+                    <div class="game-card-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="game-card-content">
+                        <h3>Donation Quiz</h3>
+                        <p>Answer questions about blood donation and get immediate feedback. Challenge yourself with different difficulty levels.</p>
+                        <div class="game-card-difficulty">
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot"></div>
+                            <div class="difficulty-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Scenarios -->
+                <div class="game-card" onclick="showGame('scenario-game')" data-aos="fade-up" data-aos-delay="600">
+                    <div class="game-card-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="game-card-content">
+                        <h3>Medical Scenarios</h3>
+                        <p>Practice decision-making in blood-related medical situations. Perfect for aspiring healthcare professionals.</p>
+                        <div class="game-card-difficulty">
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot active"></div>
+                            <div class="difficulty-dot active"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Selection Screen -->
+            <div id="game-selection" class="game-section active-section">
+                <div class="game-header">
+                    <div class="game-title">
+                        <i class="fas fa-gamepad"></i>
+                        <h2>Educational Games</h2>
+                    </div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span id="total-score">Total Score: 0</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-trophy"></i>
+                            <span id="games-completed">Games Completed: 0/6</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <h3>Select a game to begin learning about blood plasma and donation!</h3>
+                    <p class="mt-3">Each game focuses on different aspects of blood plasma and the donation process.</p>
+                </div>
+            </div>
+            
+            <!-- Memory Game Section -->
+            <div id="memory-game" class="game-section">
+                <div class="game-header">
+                    <div class="game-title">
+                        <i class="fas fa-brain"></i>
+                        <h2>Plasma Component Match</h2>
+                    </div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <i class="fas fa-clock"></i>
+                            <span id="memory-timer">00:00</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-redo"></i>
+                            <span id="memory-moves">0</span>
+                        </div>
+                        <button class="back-button" onclick="showGame('game-selection')">
+                            <i class="fas fa-arrow-left"></i> Back to Games
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <div class="memory-controls">
+                        <button class="btn btn-primary" onclick="resetMemoryGame()">
+                            <i class="fas fa-sync-alt"></i> Reset Game
+                        </button>
+                        <div class="score">
+                            <i class="fas fa-star"></i>
+                            <span id="memory-score">Matches: 0/8</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Progress</span>
+                            <span id="memory-progress-text">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="memory-progress-bar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="memory-grid" id="memory-grid">
+                        <!-- Cards will be generated by JavaScript -->
+                    </div>
+                    
+                    <div class="results-screen" id="memory-results">
+                        <h3>Congratulations!</h3>
+                        <div class="score-display" id="memory-final-score">0</div>
+                        <p class="results-message" id="memory-message">You've completed the Plasma Component Match game!</p>
+                        <button class="btn btn-primary" onclick="showGame('game-selection')">
+                            <i class="fas fa-home"></i> Return to Games
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donation Process Sorter Game -->
+            <div id="sorter-game" class="game-section">
+                <div class="game-header">
+                    <div class="game-title">
+                        <i class="fas fa-tasks"></i>
+                        <h2>Donation Process Sorter</h2>
+                    </div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <i class="fas fa-clock"></i>
+                            <span id="sorter-timer">00:00</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-check-circle"></i>
+                            <span id="sorter-score">Score: 0</span>
+                        </div>
+                        <button class="back-button" onclick="showGame('game-selection')">
+                            <i class="fas fa-arrow-left"></i> Back to Games
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <div class="text-center mb-4">
+                        <h4>Arrange the blood donation steps in the correct order</h4>
+                        <p>Drag and drop the steps to organize them from first to last</p>
+                    </div>
+                    
+                    <div class="sorter-container" id="sorter-container">
+                        <!-- Steps will be generated by JavaScript -->
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary" id="sorter-check-btn" onclick="checkSorterOrder()">
+                            <i class="fas fa-check"></i> Check Order
+                        </button>
+                        <button class="btn btn-outline-light ms-2" onclick="resetSorterGame()">
+                            <i class="fas fa-sync-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="results-screen" id="sorter-results">
+                        <h3>Well Done!</h3>
+                        <div class="score-display" id="sorter-final-score">0</div>
+                        <p class="results-message" id="sorter-message">You've correctly ordered the blood donation process!</p>
+                        <button class="btn btn-primary" onclick="showGame('game-selection')">
+                            <i class="fas fa-home"></i> Return to Games
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blood Type Compatibility Game -->
+            <div id="blood-type-game" class="game-section">
+                <div class="game-header">
+                    <div class="game-title">
+                        <i class="fas fa-heartbeat"></i>
+                        <h2>Blood Type Compatibility</h2>
+                    </div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <i class="fas fa-question"></i>
+                            <span id="blood-type-progress">Question: 1/10</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span id="blood-type-score">Score: 0</span>
+                        </div>
+                        <button class="back-button" onclick="showGame('game-selection')">
+                            <i class="fas fa-arrow-left"></i> Back to Games
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <div class="blood-type-container">
+                        <div class="blood-type-question" id="blood-type-question">
+                            <!-- Question will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="blood-type-options" id="blood-type-options">
+                            <!-- Options will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="feedback-container" id="blood-type-feedback">
+                            <!-- Feedback will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button class="btn btn-primary" id="blood-type-next-btn" onclick="nextBloodTypeQuestion()" disabled>
+                                Next Question <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-screen" id="blood-type-results">
+                        <h3>Quiz Complete!</h3>
+                        <div class="score-display" id="blood-type-final-score">0/10</div>
+                        <p class="results-message" id="blood-type-message">You've completed the Blood Type Compatibility quiz!</p>
+                        <button class="btn btn-primary" onclick="showGame('game-selection')">
+                            <i class="fas fa-home"></i> Return to Games
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donation Quiz Game -->
+            <div id="quiz-game" class="game-section">
+                <div class="game-header">
+                    <div class="game-title">
+                        <i class="fas fa-question-circle"></i>
+                        <h2>Donation Quiz</h2>
+                    </div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <i class="fas fa-question"></i>
+                            <span id="quiz-progress">Question: 1/15</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span id="quiz-score">Score: 0</span>
+                        </div>
+                        <button class="back-button" onclick="showGame('game-selection')">
+                            <i class="fas fa-arrow-left"></i> Back to Games
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <div class="quiz-container">
+                        <div class="quiz-question" id="quiz-question">
+                            <!-- Question will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="quiz-options" id="quiz-options">
+                            <!-- Options will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="feedback-container" id="quiz-feedback">
+                            <!-- Feedback will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button class="btn btn-primary" id="quiz-next-btn" onclick="nextQuizQuestion()" disabled>
+                                Next Question <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-screen" id="quiz-results">
+                        <h3>Quiz Complete!</h3>
+                        <div class="score-display" id="quiz-final-score">0/15</div>
+                        <p class="results-message" id="quiz-message">You've completed the Donation Quiz!</p>
+                        <button class="btn btn-primary" onclick="showGame('game-selection')">
+                            <i class="fas fa-home"></i> Return to Games
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Scenarios Game -->
+            <div id="scenario-game" class="game-section">
+                <div class="game-header">
+                    <div class="game-title">
+                        <i class="fas fa-user-md"></i>
+                        <h2>Medical Scenarios</h2>
+                    </div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span id="scenario-progress">Scenario: 1/5</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span id="scenario-score">Score: 0</span>
+                        </div>
+                        <button class="back-button" onclick="showGame('game-selection')">
+                            <i class="fas fa-arrow-left"></i> Back to Games
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <div class="scenario-container">
+                        <div class="scenario-text" id="scenario-text">
+                            <!-- Scenario will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="scenario-choices" id="scenario-choices">
+                            <!-- Choices will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="scenario-feedback" id="scenario-feedback">
+                            <!-- Feedback will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button class="btn btn-primary" id="scenario-next-btn" onclick="nextScenario()" style="display: none;">
+                                Next Scenario <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-screen" id="scenario-results">
+                        <h3>Scenarios Complete!</h3>
+                        <div class="score-display" id="scenario-final-score">0/5</div>
+                        <p class="results-message" id="scenario-message">You've completed all medical scenarios!</p>
+                        <button class="btn btn-primary" onclick="showGame('game-selection')">
+                            <i class="fas fa-home"></i> Return to Games
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plasma Adventure Game -->
+            <div id="adventure-game" class="game-section">
+                <div class="game-header">
+                    <div class="game-title">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h2>Plasma Adventure</h2>
+                    </div>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <i class="fas fa-compass"></i>
+                            <span id="adventure-progress">Decision: 1</span>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span id="adventure-score">Score: 0</span>
+                        </div>
+                        <button class="back-button" onclick="showGame('game-selection')">
+                            <i class="fas fa-arrow-left"></i> Back to Games
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="game-container">
+                    <div class="adventure-container">
+                        <div class="adventure-story" id="adventure-story">
+                            <!-- Story will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="adventure-choices" id="adventure-choices">
+                            <!-- Choices will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="scenario-feedback" id="adventure-feedback">
+                            <!-- Feedback will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="results-screen" id="adventure-results">
+                        <h3>Adventure Complete!</h3>
+                        <div class="score-display" id="adventure-final-score">0</div>
+                        <p class="results-message" id="adventure-message">You've completed the Plasma Adventure!</p>
+                        <button class="btn btn-primary" onclick="showGame('game-selection')">
+                            <i class="fas fa-home"></i> Return to Games
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medical Use Section -->
+    <section id="medical" class="science-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Medical Uses of Plasma</h2>
+            
+            <div class="science-grid">
+                <!-- Plasma Derivatives -->
+                <div class="science-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="science-card-icon">
+                        <i class="fas fa-prescription-bottle"></i>
+                    </div>
+                    <div class="science-card-content">
+                        <h3>Plasma-Derived Therapies</h3>
+                        <p>Plasma is processed to create life-saving treatments for various medical conditions:</p>
+                        <ul>
+                            <li><strong>Immunoglobulins:</strong> Used to treat immune deficiencies, autoimmune disorders, and infections</li>
+                            <li><strong>Albumin:</strong> Administered to patients with burns, shock, liver disease, or severe malnutrition</li>
+                            <li><strong>Clotting Factors:</strong> Essential for hemophilia patients and those with bleeding disorders</li>
+                            <li><strong>Alpha-1 Antitrypsin:</strong> Treats genetic emphysema and certain liver conditions</li>
+                            <li><strong>Hyperimmune Globulins:</strong> Provide immediate protection against specific diseases (tetanus, rabies, hepatitis B)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Plasma Transfusion -->
+                <div class="science-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="science-card-icon">
+                        <i class="fas fa-procedures"></i>
+                    </div>
+                    <div class="science-card-content">
+                        <h3>Fresh Frozen Plasma (FFP)</h3>
+                        <p>FFP is plasma that's frozen shortly after donation to preserve clotting factors:</p>
+                        <ul>
+                            <li><strong>Uses:</strong> Treatment of bleeding disorders, reversal of anticoagulants, liver disease, massive transfusion</li>
+                            <li><strong>Storage:</strong> Can be stored at -18°C or lower for up to one year</li>
+                            <li><strong>Administration:</strong> Must be ABO compatible with recipient</li>
+                            <li><strong>Volume:</strong> Typical unit is 200-250 mL</li>
+                        </ul>
+                        <p><strong>Scientific Fact:</strong> FFP contains all coagulation factors at normal physiological levels.</p>
+                    </div>
+                </div>
+
+                <!-- Plasma Exchange -->
+                <div class="science-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="science-card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="science-card-content">
+                        <h3>Therapeutic Plasma Exchange</h3>
+                        <p>Also known as plasmapheresis, this procedure involves removing plasma and replacing it with donor plasma or albumin:</p>
+                        <ul>
+                            <li><strong>Indications:</strong> Autoimmune disorders (Guillain-Barré syndrome, myasthenia gravis), neurological conditions, kidney diseases</li>
+                            <li><strong>Mechanism:</strong> Removes pathogenic antibodies, immune complexes, or toxins from circulation</li>
+                            <li><strong>Frequency:</strong> Typically performed daily or every other day for 5-7 sessions</li>
+                            <li><strong>Replacement Fluid:</strong> Albumin solution or FFP, depending on clinical indication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section id="donation" class="composition-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Plasma Donation</h2>
+            
+            <div class="composition-details">
+                <!-- Plasma Donation Process -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="100">
+                    <h4>Plasma Donation Process</h4>
+                    <p>Plasma donation involves a specialized procedure called plasmapheresis:</p>
+                    <ul>
+                        <li><strong>Screening:</strong> Health assessment, medical history, and protein level check</li>
+                        <li><strong>Procedure:</strong> Blood is drawn, plasma is separated, and remaining components are returned to donor</li>
+                        <li><strong>Duration:</strong> Takes about 60-90 minutes</li>
+                        <li><strong>Frequency:</strong> Can donate up to twice per week with at least one day between donations</li>
+                        <li><strong>Volume:</strong> Typically 690-880 mL per donation</li>
+                    </ul>
+                    <p><strong>Scientific Note:</strong> The body replaces donated plasma within 24-48 hours.</p>
+                </div>
+
+                <!-- Donor Requirements -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Donor Eligibility</h4>
+                    <p>To donate plasma, individuals must meet specific criteria:</p>
+                    <ul>
+                        <li><strong>Age:</strong> 18-69 years (varies by country and donation center)</li>
+                        <li><strong>Weight:</strong> At least 110 pounds (50 kg)</li>
+                        <li><strong>Health:</strong> Generally good health with no active infections</li>
+                        <li><strong>Protein Levels:</strong> Total protein must be within normal range (6.0-8.5 g/dL)</li>
+                        <li><strong>Hemoglobin:</strong> Adequate levels (12.5 g/dL for women, 13.0 g/dL for men)</li>
+                        <li><strong>Medical History:</strong> No history of certain diseases or risk factors</li>
+                    </ul>
+                </div>
+
+                <!-- Plasma vs Whole Blood -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="300">
+                    <h4>Plasma vs. Whole Blood Donation</h4>
+                    <p>Key differences between plasma and whole blood donation:</p>
+                    <ul>
+                        <li><strong>Frequency:</strong> Plasma can be donated more frequently (up to 2x/week vs. every 8 weeks for whole blood)</li>
+                        <li><strong>Procedure:</strong> Plasma donation returns red blood cells to donor</li>
+                        <li><strong>Recovery:</strong> Faster recovery after plasma donation</li>
+                        <li><strong>Uses:</strong> Plasma is used for different medical treatments than whole blood</li>
+                        <li><strong>Time:</strong> Plasma donation takes longer (60-90 min vs. 15-20 min for whole blood)</li>
+                    </ul>
+                </div>
+
+                <!-- Impact of Donation -->
+                <div class="composition-item" data-aos="fade-up" data-aos-delay="400">
+                    <h4>Impact of Plasma Donation</h4>
+                    <p>Plasma donation has significant medical and societal benefits:</p>
+                    <ul>
+                        <li><strong>Life-Saving Treatments:</strong> Plasma-derived products treat rare and chronic conditions</li>
+                        <li><strong>Emergency Preparedness:</strong> Maintains supply for trauma patients and disaster response</li>
+                        <li><strong>Medical Research:</strong> Supports development of new therapies and diagnostic tools</li>
+                        <li><strong>Global Health:</strong> Plasma products are used worldwide to treat various conditions</li>
+                        <li><strong>Economic Impact:</strong> Creates jobs and supports healthcare infrastructure</li>
+                    </ul>
+                    <p><strong>Did You Know?</strong> It takes 130-1,300 plasma donations to treat one hemophilia patient for one year.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+            <div class="video-container">
+                <iframe id="modalVideo" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Create dynamic floating cells in background
+        function createFloatingCells() {
+            const container = document.querySelector('.floating-cells');
+            const cellTypes = ['red', 'white', 'platelet'];
+            
+            for (let i = 0; i < 40; i++) {
+                const cell = document.createElement('div');
+                const type = cellTypes[Math.floor(Math.random() * cellTypes.length)];
+                
+                cell.className = `floating-cell ${type}`;
+                cell.style.cssText = `
+                    position: absolute;
+                    width: ${Math.random() * 30 + 10}px;
+                    height: ${Math.random() * 30 + 10}px;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    animation: float ${Math.random() * 25 + 15}s infinite linear;
+                    opacity: ${Math.random() * 0.2 + 0.05};
+                `;
+                
+                container.appendChild(cell);
+            }
+        }
+
+        // Typing animation for hero subtitle
+        function initializeTypingAnimation() {
+            const texts = ['River of Life', 'Liquid Gold', 'Medical Miracle', 'Life Saver', 'Universal Solvent'];
+            const typedTextElement = document.querySelector('.typed-text');
+            const cursorElement = document.querySelector('.cursor');
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+
+            function type() {
+                const currentText = texts[textIndex];
+                
+                if (isDeleting) {
+                    typedTextElement.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    typingSpeed = 50;
+                } else {
+                    typedTextElement.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    typingSpeed = 100;
+                }
+
+                if (!isDeleting && charIndex === currentText.length) {
+                    isDeleting = true;
+                    typingSpeed = 1500; // Pause at end
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textIndex = (textIndex + 1) % texts.length;
+                    typingSpeed = 500; // Pause before next word
+                }
+
+                setTimeout(type, typingSpeed);
+            }
+
+            setTimeout(type, 1000);
+        }
+
+        // Create plasma composition chart
+        function createPlasmaCompositionChart() {
+            const ctx = document.getElementById('plasmaCompositionChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Water', 'Proteins', 'Electrolytes', 'Nutrients', 'Gases', 'Other'],
+                    datasets: [{
+                        data: [92, 7, 0.8, 0.1, 0.1, 0.05],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(153, 102, 255, 0.8)',
+                            'rgba(255, 159, 64, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'white',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Game display functions
+        function showGame(gameId) {
+            // Hide all game sections
+            document.querySelectorAll('.game-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show the selected game
+            document.getElementById(gameId).style.display = 'block';
+            
+            // Initialize the game if needed
+            if (gameId === 'memory-game') {
+                initializeMemoryGame();
+            } else if (gameId === 'sorter-game') {
+                initializeSorterGame();
+            } else if (gameId === 'blood-type-game') {
+                initializeBloodTypeGame();
+            } else if (gameId === 'quiz-game') {
+                initializeQuizGame();
+            } else if (gameId === 'scenario-game') {
+                initializeScenarioGame();
+            } else if (gameId === 'adventure-game') {
+                initializeAdventureGame();
+            }
+        }
+
+        // Memory Game Functions
+        function initializeMemoryGame() {
+            const memoryGrid = document.getElementById('memory-grid');
+            memoryGrid.innerHTML = '';
+            
+            // Create a shuffled array of cards (pairs)
+            const memoryGameData = [
+                { component: "Plasma", function: "Carries nutrients, hormones, and proteins", icon: "fas fa-tint" },
+                { component: "Red Blood Cells", function: "Carry oxygen to body tissues", icon: "fas fa-circle" },
+                { component: "White Blood Cells", function: "Fight infections and diseases", icon: "fas fa-shield-alt" },
+                { component: "Platelets", function: "Help blood to clot and prevent bleeding", icon: "fas fa-band-aid" },
+                { component: "Hemoglobin", function: "Protein in red blood cells that carries oxygen", icon: "fas fa-atom" },
+                { component: "Fibrinogen", function: "Protein that helps form blood clots", icon: "fas fa-layer-group" },
+                { component: "Albumin", function: "Maintains proper fluid balance in blood", icon: "fas fa-balance-scale" },
+                { component: "Immunoglobulins", function: "Antibodies that fight infections", icon: "fas fa-microscope" },
+                { component: "Electrolytes", function: "Maintain fluid balance and nerve function", icon: "fas fa-bolt" },
+                { component: "Hormones", function: "Chemical messengers that regulate body functions", icon: "fas fa-exchange-alt" },
+                { component: "Glucose", function: "Provides energy for cells throughout the body", icon: "fas fa-candy-cane" },
+                { component: "Lipids", function: "Store energy and form cell membranes", icon: "fas fa-oil-can" }
+            ];
+            
+            let cards = [];
+            memoryGameData.forEach((item, index) => {
+                cards.push({ type: 'component', content: item.component, matchId: index, icon: item.icon });
+                cards.push({ type: 'function', content: item.function, matchId: index, icon: item.icon });
+            });
+            
+            // Shuffle the cards
+            cards = shuffleArray(cards);
+            
+            // Create card elements
+            cards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'memory-card';
+                cardElement.dataset.index = index;
+                cardElement.dataset.matchId = card.matchId;
+                cardElement.dataset.type = card.type;
+                
+                const cardInner = document.createElement('div');
+                cardInner.className = 'memory-card-inner';
+                
+                const front = document.createElement('div');
+                front.className = 'memory-card-front';
+                front.innerHTML = `<i class="fas fa-question"></i><span>Click to Flip</span>`;
+                
+                const back = document.createElement('div');
+                back.className = `memory-card-back ${card.type}`;
+                back.innerHTML = `<i class="${card.icon}"></i><span>${card.content}</span>`;
+                
+                cardInner.appendChild(front);
+                cardInner.appendChild(back);
+                cardElement.appendChild(cardInner);
+                
+                cardElement.addEventListener('click', () => flipCard(cardElement));
+                
+                memoryGrid.appendChild(cardElement);
+            });
+            
+            // Reset game stats
+            document.getElementById('memory-score').textContent = 'Matches: 0/12';
+            document.getElementById('memory-moves').textContent = '0';
+            document.getElementById('memory-timer').textContent = '00:00';
+            document.getElementById('memory-progress-bar').style.width = '0%';
+            document.getElementById('memory-progress-text').textContent = '0%';
+            document.getElementById('memory-results').classList.remove('show');
+            
+            // Start timer
+            startMemoryTimer();
+        }
+
+        function flipCard(cardElement) {
+            // Don't flip if already flipped or matched
+            if (cardElement.classList.contains('flipped') || cardElement.classList.contains('matched')) {
+                return;
+            }
+            
+            cardElement.classList.add('flipped');
+            
+            // Check for match if two cards are flipped
+            const flippedCards = document.querySelectorAll('.memory-card.flipped:not(.matched)');
+            
+            if (flippedCards.length === 2) {
+                const card1 = flippedCards[0];
+                const card2 = flippedCards[1];
+                
+                // Update moves
+                const movesElement = document.getElementById('memory-moves');
+                movesElement.textContent = parseInt(movesElement.textContent) + 1;
+                
+                if (card1.dataset.matchId === card2.dataset.matchId) {
+                    // Match found
+                    setTimeout(() => {
+                        card1.classList.add('matched');
+                        card2.classList.add('matched');
+                        
+                        // Update score
+                        const scoreElement = document.getElementById('memory-score');
+                        const currentMatches = parseInt(scoreElement.textContent.split('/')[0].split(': ')[1]) + 1;
+                        scoreElement.textContent = `Matches: ${currentMatches}/12`;
+                        
+                        // Update progress bar
+                        const progressPercent = (currentMatches / 12) * 100;
+                        document.getElementById('memory-progress-bar').style.width = `${progressPercent}%`;
+                        document.getElementById('memory-progress-text').textContent = `${Math.round(progressPercent)}%`;
+                        
+                        // Check if game is complete
+                        if (currentMatches === 12) {
+                            clearInterval(memoryTimer);
+                            const finalTime = document.getElementById('memory-timer').textContent;
+                            const finalMoves = document.getElementById('memory-moves').textContent;
+                            
+                            // Calculate score based on time and moves
+                            const timeScore = Math.max(0, 300 - (parseInt(finalTime.split(':')[0]) * 60 + parseInt(finalTime.split(':')[1])));
+                            const movesScore = Math.max(0, 100 - parseInt(finalMoves));
+                            const finalScore = timeScore + movesScore;
+                            
+                            document.getElementById('memory-final-score').textContent = finalScore;
+                            document.getElementById('memory-message').textContent = `You completed the game in ${finalTime} with ${finalMoves} moves!`;
+                            document.getElementById('memory-results').classList.add('show');
+                            
+                            // Update global score
+                            updateGlobalScore(finalScore);
+                        }
+                    }, 500);
+                } else {
+                    // No match - flip back after a delay
+                    setTimeout(() => {
+                        card1.classList.remove('flipped');
+                        card2.classList.remove('flipped');
+                    }, 1000);
+                }
+            }
+        }
+
+        let memoryTimer;
+        function startMemoryTimer() {
+            let seconds = 0;
+            clearInterval(memoryTimer);
+            
+            memoryTimer = setInterval(() => {
+                seconds++;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                document.getElementById('memory-timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function resetMemoryGame() {
+            clearInterval(memoryTimer);
+            initializeMemoryGame();
+        }
+
+        // Sorter Game Functions
+        function initializeSorterGame() {
+            const sorterContainer = document.getElementById('sorter-container');
+            sorterContainer.innerHTML = '';
+            
+            const donationSteps = [
+                { step: "Registration and health screening", description: "Provide identification and complete a health history questionnaire" },
+                { step: "Mini-physical check", description: "Check of pulse, blood pressure, temperature, and hemoglobin levels" },
+                { step: "Donation preparation", description: "Clean the arm and insert a sterile needle for blood collection" },
+                { step: "Blood donation", description: "Actual donation process which takes about 8-10 minutes" },
+                { step: "Recovery and refreshments", description: "Rest for a few minutes and have snacks and drinks" },
+                { step: "Post-donation care", description: "Receive instructions on aftercare and when to donate again" },
+                { step: "Blood processing", description: "Blood is tested, separated into components, and stored appropriately" },
+                { step: "Distribution to hospitals", description: "Blood products are sent to hospitals for patient use" }
+            ];
+            
+            // Shuffle the steps
+            const shuffledSteps = shuffleArray([...donationSteps]);
+            
+            shuffledSteps.forEach((step, index) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'sorter-item';
+                stepElement.draggable = true;
+                stepElement.dataset.correctOrder = donationSteps.indexOf(step) + 1;
+                
+                stepElement.innerHTML = `
+                    <div class="sorter-number">${index + 1}</div>
+                    <div>
+                        <h5>${step.step}</h5>
+                        <p class="mb-0">${step.description}</p>
+                    </div>
+                `;
+                
+                // Add drag events
+                stepElement.addEventListener('dragstart', handleDragStart);
+                stepElement.addEventListener('dragover', handleDragOver);
+                stepElement.addEventListener('drop', handleDrop);
+                stepElement.addEventListener('dragend', handleDragEnd);
+                
+                sorterContainer.appendChild(stepElement);
+            });
+            
+            // Reset UI
+            document.getElementById('sorter-timer').textContent = '00:00';
+            document.getElementById('sorter-score').textContent = 'Score: 0';
+            document.getElementById('sorter-results').classList.remove('show');
+            
+            // Start timer
+            startSorterTimer();
+        }
+
+        let draggedItem = null;
+
+        function handleDragStart(e) {
+            draggedItem = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            if (this !== draggedItem) {
+                const allItems = Array.from(document.querySelectorAll('.sorter-item'));
+                const draggedIndex = allItems.indexOf(draggedItem);
+                const targetIndex = allItems.indexOf(this);
+                
+                if (draggedIndex < targetIndex) {
+                    this.parentNode.insertBefore(draggedItem, this.nextSibling);
+                } else {
+                    this.parentNode.insertBefore(draggedItem, this);
+                }
+            }
+        }
+
+        function handleDragEnd() {
+            this.classList.remove('dragging');
+            draggedItem = null;
+            
+            // Update numbers
+            const items = document.querySelectorAll('.sorter-item');
+            items.forEach((item, index) => {
+                item.querySelector('.sorter-number').textContent = index + 1;
+            });
+        }
+
+        function checkSorterOrder() {
+            const items = document.querySelectorAll('.sorter-item');
+            let correctCount = 0;
+            
+            items.forEach((item, index) => {
+                const correctOrder = parseInt(item.dataset.correctOrder);
+                if (index + 1 === correctOrder) {
+                    item.classList.add('correct');
+                    item.classList.remove('incorrect');
+                    correctCount++;
+                } else {
+                    item.classList.add('incorrect');
+                    item.classList.remove('correct');
+                }
+            });
+            
+            if (correctCount === items.length) {
+                clearInterval(sorterTimer);
+                const finalTime = document.getElementById('sorter-timer').textContent;
+                const timeScore = Math.max(0, 120 - (parseInt(finalTime.split(':')[0]) * 60 + parseInt(finalTime.split(':')[1])));
+                const finalScore = timeScore + 100;
+                
+                document.getElementById('sorter-final-score').textContent = finalScore;
+                document.getElementById('sorter-message').textContent = `You correctly ordered all steps in ${finalTime}!`;
+                document.getElementById('sorter-results').classList.add('show');
+                
+                // Update global score
+                updateGlobalScore(finalScore);
+            }
+        }
+
+        let sorterTimer;
+        function startSorterTimer() {
+            let seconds = 0;
+            clearInterval(sorterTimer);
+            
+            sorterTimer = setInterval(() => {
+                seconds++;
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                document.getElementById('sorter-timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function resetSorterGame() {
+            clearInterval(sorterTimer);
+            initializeSorterGame();
+        }
+
+        // Blood Type Game Functions
+        let currentBloodTypeQuestion = 0;
+        let bloodTypeScore = 0;
+        const bloodTypeQuestions = [
+            {
+                question: "Which blood type is known as the 'universal donor'?",
+                options: ["A+", "B-", "O-", "AB+"],
+                correct: 2,
+                explanation: {
+                    correct: "O- is the universal donor because it lacks A, B, and Rh antigens, making it compatible with all blood types.",
+                    incorrect: {
+                        0: "A+ has A antigens and Rh factor, which can cause reactions in recipients with different blood types.",
+                        1: "B- has B antigens, which can cause immune reactions in recipients without B antigens.",
+                        3: "AB+ is the universal recipient, not donor, as it has all antigens and can receive from any blood type."
+                    }
+                }
+            },
+            {
+                question: "Which blood type is known as the 'universal recipient'?",
+                options: ["A+", "B-", "O-", "AB+"],
+                correct: 3,
+                explanation: {
+                    correct: "AB+ is the universal recipient because it has all antigens (A, B, and Rh) and doesn't produce antibodies against any blood type.",
+                    incorrect: {
+                        0: "A+ can only receive from A+, A-, O+, and O- blood types.",
+                        1: "B- can only receive from B- and O- blood types.",
+                        2: "O- can only receive from O- blood type."
+                    }
+                }
+            },
+            {
+                question: "A person with blood type A+ can receive blood from:",
+                options: ["A+ and O+ only", "A+, A-, O+, O-", "All blood types", "AB+ only"],
+                correct: 1,
+                explanation: {
+                    correct: "A+ can receive from A+, A-, O+, and O- because it has A antigens and Rh factor, and doesn't have antibodies against these.",
+                    incorrect: {
+                        0: "A+ can also receive from A- and O- blood types.",
+                        2: "A+ cannot receive from B or AB blood types due to anti-B antibodies.",
+                        3: "AB+ donors would cause immune reactions in A+ recipients."
+                    }
+                }
+            },
+            {
+                question: "A person with blood type O- can donate to:",
+                options: ["O- only", "All Rh-negative types", "All blood types", "O+ and O- only"],
+                correct: 2,
+                explanation: {
+                    correct: "O- lacks A, B, and Rh antigens, making it compatible with all blood types as a donor.",
+                    incorrect: {
+                        0: "O- can donate to all blood types, not just O-.",
+                        1: "O- can donate to both Rh-positive and Rh-negative recipients.",
+                        3: "O- can donate to all blood types, not just O+ and O-."
+                    }
+                }
+            },
+            {
+                question: "Which blood type can receive from O+?",
+                options: ["O+ only", "All Rh-positive types", "All blood types", "O+ and AB+"],
+                correct: 1,
+                explanation: {
+                    correct: "O+ can be donated to all Rh-positive blood types (A+, B+, AB+, O+) because it lacks A and B antigens but has Rh factor.",
+                    incorrect: {
+                        0: "O+ can be donated to all Rh-positive types, not just O+.",
+                        2: "O+ cannot be donated to Rh-negative recipients due to the Rh factor.",
+                        3: "O+ can be donated to all Rh-positive types, not just O+ and AB+."
+                    }
+                }
+            },
+            {
+                question: "A person with AB- blood type can receive from:",
+                options: ["AB- only", "All Rh-negative types", "All blood types", "O-, A-, B-, AB-"],
+                correct: 3,
+                explanation: {
+                    correct: "AB- can receive from any Rh-negative blood type (O-, A-, B-, AB-) because it has no antibodies against A or B antigens.",
+                    incorrect: {
+                        0: "AB- can receive from all Rh-negative types, not just AB-.",
+                        1: "AB- can only receive from Rh-negative types, not all blood types.",
+                        2: "AB- cannot receive from Rh-positive donors due to anti-Rh antibodies."
+                    }
+                }
+            },
+            {
+                question: "Which blood type combination would cause the most severe transfusion reaction?",
+                options: ["O- to O+", "A+ to AB+", "B- to B+", "AB+ to O-"],
+                correct: 3,
+                explanation: {
+                    correct: "AB+ to O- would cause the most severe reaction because O- has antibodies against A, B, and Rh antigens, all of which are present in AB+ blood.",
+                    incorrect: {
+                        0: "O- to O+ is generally safe as O- lacks antigens that O+ would react to.",
+                        1: "A+ to AB+ is safe as AB+ has all antigens and no corresponding antibodies.",
+                        2: "B- to B+ is generally safe as they share B antigens and Rh factor compatibility."
+                    }
+                }
+            },
+            {
+                question: "A person with B+ blood can donate to:",
+                options: ["B+ and AB+ only", "B+, B-, AB+, AB-", "All B blood types", "B+ only"],
+                correct: 0,
+                explanation: {
+                    correct: "B+ can donate to B+ and AB+ because AB+ has no antibodies against B antigens and both are Rh-positive.",
+                    incorrect: {
+                        1: "B+ cannot donate to Rh-negative recipients (B-, AB-) due to the Rh factor.",
+                        2: "B+ cannot donate to B- because of Rh incompatibility.",
+                        3: "B+ can also donate to AB+ recipients."
+                    }
+                }
+            },
+            {
+                question: "Which statement about Rh factor is correct?",
+                options: [
+                    "Rh-negative people can receive Rh-positive blood safely",
+                    "Rh-positive people can never receive Rh-negative blood",
+                    "Rh-negative mothers can develop antibodies against Rh-positive babies",
+                    "Rh factor is less important than ABO compatibility"
+                ],
+                correct: 2,
+                explanation: {
+                    correct: "Rh-negative mothers can develop antibodies against Rh-positive babies during pregnancy, which can affect subsequent pregnancies.",
+                    incorrect: {
+                        0: "Rh-negative people should not receive Rh-positive blood as it can cause antibody production.",
+                        1: "Rh-positive people can safely receive Rh-negative blood.",
+                        3: "Both ABO and Rh compatibility are critically important for safe transfusions."
+                    }
+                }
+            },
+            {
+                question: "What percentage of the population has O+ blood type?",
+                options: ["5%", "15%", "38%", "65%"],
+                correct: 2,
+                explanation: {
+                    correct: "Approximately 38% of the population has O+ blood type, making it the most common blood type.",
+                    incorrect: {
+                        0: "5% is closer to the percentage for AB- blood type.",
+                        1: "15% is closer to the percentage for B+ blood type.",
+                        3: "65% is higher than any single blood type percentage."
+                    }
+                }
+            }
+        ];
+
+        function initializeBloodTypeGame() {
+            currentBloodTypeQuestion = 0;
+            bloodTypeScore = 0;
+            document.getElementById('blood-type-progress').textContent = `Question: 1/${bloodTypeQuestions.length}`;
+            document.getElementById('blood-type-score').textContent = `Score: 0`;
+            document.getElementById('blood-type-results').classList.remove('show');
+            document.getElementById('blood-type-next-btn').disabled = true;
+            document.getElementById('blood-type-feedback').classList.remove('show');
+            
+            showBloodTypeQuestion();
+        }
+
+        function showBloodTypeQuestion() {
+            const question = bloodTypeQuestions[currentBloodTypeQuestion];
+            const questionElement = document.getElementById('blood-type-question');
+            const optionsElement = document.getElementById('blood-type-options');
+            const feedbackElement = document.getElementById('blood-type-feedback');
+            
+            questionElement.innerHTML = `<h4>${question.question}</h4>`;
+            optionsElement.innerHTML = '';
+            feedbackElement.classList.remove('show');
+            feedbackElement.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'blood-type-option';
+                optionElement.textContent = option;
+                optionElement.dataset.index = index;
+                
+                optionElement.addEventListener('click', () => selectBloodTypeOption(optionElement));
+                
+                optionsElement.appendChild(optionElement);
+            });
+        }
+
+        function selectBloodTypeOption(selectedElement) {
+            // Remove selected class from all options
+            document.querySelectorAll('.blood-type-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            selectedElement.classList.add('selected');
+            
+            // Enable next button
+            document.getElementById('blood-type-next-btn').disabled = false;
+        }
+
+        function nextBloodTypeQuestion() {
+            const selectedOption = document.querySelector('.blood-type-option.selected');
+            if (!selectedOption) return;
+            
+            const question = bloodTypeQuestions[currentBloodTypeQuestion];
+            const selectedIndex = parseInt(selectedOption.dataset.index);
+            const feedbackElement = document.getElementById('blood-type-feedback');
+            
+            // Check if answer is correct
+            if (selectedIndex === question.correct) {
+                selectedOption.classList.add('correct');
+                bloodTypeScore++;
+                
+                // Show correct feedback
+                feedbackElement.innerHTML = `
+                    <div class="feedback-title correct">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Correct!</span>
+                    </div>
+                    <div class="feedback-explanation">
+                        ${question.explanation.correct}
+                    </div>
+                `;
+            } else {
+                selectedOption.classList.add('incorrect');
+                // Highlight correct answer
+                document.querySelectorAll('.blood-type-option')[question.correct].classList.add('correct');
+                
+                // Show incorrect feedback
+                feedbackElement.innerHTML = `
+                    <div class="feedback-title incorrect">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Incorrect</span>
+                    </div>
+                    <div class="feedback-explanation">
+                        ${question.explanation.incorrect[selectedIndex]}
+                    </div>
+                `;
+            }
+            
+            feedbackElement.classList.add('show');
+            
+            // Update score
+            document.getElementById('blood-type-score').textContent = `Score: ${bloodTypeScore}`;
+            
+            // Disable next button until next question
+            document.getElementById('blood-type-next-btn').disabled = true;
+            
+            // Move to next question or show results
+            setTimeout(() => {
+                currentBloodTypeQuestion++;
+                
+                if (currentBloodTypeQuestion < bloodTypeQuestions.length) {
+                    document.getElementById('blood-type-progress').textContent = `Question: ${currentBloodTypeQuestion + 1}/${bloodTypeQuestions.length}`;
+                    showBloodTypeQuestion();
+                } else {
+                    // Show results
+                    document.getElementById('blood-type-final-score').textContent = `${bloodTypeScore}/${bloodTypeQuestions.length}`;
+                    document.getElementById('blood-type-message').textContent = `You answered ${bloodTypeScore} out of ${bloodTypeQuestions.length} questions correctly!`;
+                    document.getElementById('blood-type-results').classList.add('show');
+                    
+                    // Update global score
+                    updateGlobalScore(bloodTypeScore * 10);
+                }
+            }, 3000);
+        }
+
+        // Quiz Game Functions
+        let currentQuizQuestion = 0;
+        let quizScore = 0;
+        const quizQuestions = [
+            {
+                question: "How often can a healthy person donate whole blood?",
+                options: ["Every week", "Every 2 weeks", "Every 8 weeks", "Every 6 months"],
+                correct: 2,
+                explanation: {
+                    correct: "The body needs about 8 weeks to replenish the iron and red blood cells lost during donation.",
+                    incorrect: {
+                        0: "Weekly donation would cause severe iron deficiency and anemia.",
+                        1: "Two weeks is not enough time to replenish red blood cells.",
+                        3: "Six months is longer than necessary; the body typically recovers in 8 weeks."
+                    }
+                }
+            },
+            {
+                question: "What percentage of your blood is plasma?",
+                options: ["25%", "45%", "55%", "75%"],
+                correct: 2,
+                explanation: {
+                    correct: "Plasma makes up about 55% of total blood volume, with the remaining 45% consisting of blood cells.",
+                    incorrect: {
+                        0: "25% is too low; plasma is the majority component of blood.",
+                        1: "45% is the approximate percentage of blood cells, not plasma.",
+                        3: "75% is higher than the actual plasma percentage."
+                    }
+                }
+            },
+            {
+                question: "Which of these is NOT a component of blood?",
+                options: ["Platelets", "Plasma", "Hemoglobin", "Lymphocytes"],
+                correct: 3,
+                explanation: {
+                    correct: "Lymphocytes are a type of white blood cell, not a separate blood component. The main components are plasma, red blood cells, white blood cells, and platelets.",
+                    incorrect: {
+                        0: "Platelets are blood components that help with clotting.",
+                        1: "Plasma is the liquid component of blood.",
+                        2: "Hemoglobin is the protein in red blood cells that carries oxygen."
+                    }
+                }
+            },
+            {
+                question: "What is the main function of red blood cells?",
+                options: ["Fight infection", "Carry oxygen", "Clot blood", "Transport nutrients"],
+                correct: 1,
+                explanation: {
+                    correct: "Red blood cells contain hemoglobin which binds to oxygen and carries it throughout the body.",
+                    incorrect: {
+                        0: "Fighting infection is the function of white blood cells.",
+                        2: "Blood clotting is primarily the function of platelets.",
+                        3: "Transporting nutrients is mainly done by plasma."
+                    }
+                }
+            },
+            {
+                question: "How long does it take to donate one unit of blood?",
+                options: ["5-10 minutes", "15-20 minutes", "30-45 minutes", "60 minutes"],
+                correct: 1,
+                explanation: {
+                    correct: "The actual blood donation typically takes 15-20 minutes, though the entire process takes about an hour including registration and recovery.",
+                    incorrect: {
+                        0: "5-10 minutes is too short for a complete donation.",
+                        2: "30-45 minutes is longer than typical donation time.",
+                        3: "60 minutes includes the entire donation process, not just the blood collection."
+                    }
+                }
+            },
+            {
+                question: "What is the minimum hemoglobin level required for blood donation?",
+                options: ["10 g/dL", "12.5 g/dL", "14 g/dL", "16 g/dL"],
+                correct: 1,
+                explanation: {
+                    correct: "12.5 g/dL is the minimum hemoglobin level required to ensure donor safety and adequate iron stores.",
+                    incorrect: {
+                        0: "10 g/dL indicates anemia and is too low for donation.",
+                        2: "14 g/dL is a normal level but not the minimum requirement.",
+                        3: "16 g/dL is higher than the minimum requirement."
+                    }
+                }
+            },
+            {
+                question: "Which blood component is used to treat burn victims?",
+                options: ["Red blood cells", "Platelets", "Plasma", "White blood cells"],
+                correct: 2,
+                explanation: {
+                    correct: "Plasma is used for burn victims because it helps maintain blood volume and provides essential proteins for healing.",
+                    incorrect: {
+                        0: "Red blood cells are primarily used for anemia and blood loss.",
+                        1: "Platelets are used for clotting disorders.",
+                        3: "White blood cells are rarely transfused and not typically used for burns."
+                    }
+                }
+            },
+            {
+                question: "What is the shelf life of donated red blood cells?",
+                options: ["7 days", "21 days", "42 days", "1 year"],
+                correct: 2,
+                explanation: {
+                    correct: "Red blood cells can be stored for up to 42 days when refrigerated properly.",
+                    incorrect: {
+                        0: "7 days is the shelf life of platelets, not red blood cells.",
+                        1: "21 days is shorter than the actual shelf life.",
+                        3: "Blood components cannot be stored for a year; they have limited shelf lives."
+                    }
+                }
+            },
+            {
+                question: "Which vitamin is necessary for blood clotting?",
+                options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"],
+                correct: 3,
+                explanation: {
+                    correct: "Vitamin K is essential for the production of clotting factors in the liver.",
+                    incorrect: {
+                        0: "Vitamin A is important for vision and immune function.",
+                        1: "Vitamin C is important for collagen production and immune function.",
+                        2: "Vitamin D is important for calcium absorption and bone health."
+                    }
+                }
+            },
+            {
+                question: "What is the most common blood type?",
+                options: ["A+", "B+", "O+", "AB+"],
+                correct: 2,
+                explanation: {
+                    correct: "O+ is the most common blood type, found in about 38% of the population.",
+                    incorrect: {
+                        0: "A+ is the second most common at about 34%.",
+                        1: "B+ is less common at about 9%.",
+                        3: "AB+ is the rarest at about 3%."
+                    }
+                }
+            },
+            {
+                question: "How much blood does the average adult have in their body?",
+                options: ["3-4 liters", "5-6 liters", "7-8 liters", "9-10 liters"],
+                correct: 1,
+                explanation: {
+                    correct: "The average adult has about 5-6 liters of blood, which is approximately 7-8% of body weight.",
+                    incorrect: {
+                        0: "3-4 liters is too low for an average adult.",
+                        2: "7-8 liters is higher than average.",
+                        3: "9-10 liters is significantly higher than average."
+                    }
+                }
+            },
+            {
+                question: "What is apheresis donation?",
+                options: [
+                    "Donating only plasma",
+                    "Donating only platelets",
+                    "A process where specific blood components are collected and the rest returned",
+                    "Donating double red blood cells"
+                ],
+                correct: 2,
+                explanation: {
+                    correct: "Apheresis is a process where blood is drawn, specific components (like plasma or platelets) are separated and collected, and the remaining blood is returned to the donor.",
+                    incorrect: {
+                        0: "Plasma donation is one type of apheresis, but apheresis can also collect platelets or other components.",
+                        1: "Platelet donation is one type of apheresis, but the definition is broader.",
+                        3: "Double red cell donation is a specific type of apheresis, not the definition of apheresis itself."
+                    }
+                }
+            },
+            {
+                question: "Which condition would permanently defer someone from blood donation?",
+                options: [
+                    "High blood pressure",
+                    "Diabetes",
+                    "Hepatitis B infection",
+                    "Allergies"
+                ],
+                correct: 2,
+                explanation: {
+                    correct: "Hepatitis B infection is a permanent deferral because it can be transmitted through blood transfusion.",
+                    incorrect: {
+                        0: "Controlled high blood pressure does not necessarily prevent donation.",
+                        1: "Well-controlled diabetes may not prevent donation.",
+                        3: "Allergies typically do not prevent blood donation unless severe."
+                    }
+                }
+            },
+            {
+                question: "What is the 'buffy coat' in centrifuged blood?",
+                options: [
+                    "The plasma layer",
+                    "The red blood cell layer",
+                    "The white blood cell and platelet layer",
+                    "The clotting factors"
+                ],
+                correct: 2,
+                explanation: {
+                    correct: "The buffy coat is the thin layer between plasma and red blood cells that contains white blood cells and platelets.",
+                    incorrect: {
+                        0: "The plasma is the top yellow layer.",
+                        1: "Red blood cells form the bottom layer.",
+                        3: "Clotting factors are dissolved in plasma, not in a separate layer."
+                    }
+                }
+            },
+            {
+                question: "How long should you wait after getting a tattoo before donating blood?",
+                options: ["24 hours", "1 week", "3 months", "1 year"],
+                correct: 2,
+                explanation: {
+                    correct: "Most blood centers require a 3-month waiting period after getting a tattoo to ensure no bloodborne infections were transmitted.",
+                    incorrect: {
+                        0: "24 hours is not enough time to ensure safety.",
+                        1: "1 week is not the standard waiting period.",
+                        3: "1 year is longer than necessary if the tattoo was done in a regulated facility."
+                    }
+                }
+            }
+        ];
+
+        function initializeQuizGame() {
+            currentQuizQuestion = 0;
+            quizScore = 0;
+            document.getElementById('quiz-progress').textContent = `Question: 1/${quizQuestions.length}`;
+            document.getElementById('quiz-score').textContent = `Score: 0`;
+            document.getElementById('quiz-results').classList.remove('show');
+            document.getElementById('quiz-next-btn').disabled = true;
+            document.getElementById('quiz-feedback').classList.remove('show');
+            
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const question = quizQuestions[currentQuizQuestion];
+            const questionElement = document.getElementById('quiz-question');
+            const optionsElement = document.getElementById('quiz-options');
+            const feedbackElement = document.getElementById('quiz-feedback');
+            
+            questionElement.innerHTML = `<h4>${question.question}</h4>`;
+            optionsElement.innerHTML = '';
+            feedbackElement.classList.remove('show');
+            feedbackElement.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'quiz-option';
+                optionElement.innerHTML = `
+                    <span class="me-3">${String.fromCharCode(65 + index)}.</span> ${option}
+                `;
+                optionElement.dataset.index = index;
+                
+                optionElement.addEventListener('click', () => selectQuizOption(optionElement));
+                
+                optionsElement.appendChild(optionElement);
+            });
+        }
+
+        function selectQuizOption(selectedElement) {
+            // Remove selected class from all options
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            selectedElement.classList.add('selected');
+            
+            // Enable next button
+            document.getElementById('quiz-next-btn').disabled = false;
+        }
+
+        function nextQuizQuestion() {
+            const selectedOption = document.querySelector('.quiz-option.selected');
+            if (!selectedOption) return;
+            
+            const question = quizQuestions[currentQuizQuestion];
+            const selectedIndex = parseInt(selectedOption.dataset.index);
+            const feedbackElement = document.getElementById('quiz-feedback');
+            
+            // Check if answer is correct
+            if (selectedIndex === question.correct) {
+                selectedOption.classList.add('correct');
+                quizScore++;
+                
+                // Show correct feedback
+                feedbackElement.innerHTML = `
+                    <div class="feedback-title correct">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Correct!</span>
+                    </div>
+                    <div class="feedback-explanation">
+                        ${question.explanation.correct}
+                    </div>
+                `;
+            } else {
+                selectedOption.classList.add('incorrect');
+                // Highlight correct answer
+                document.querySelectorAll('.quiz-option')[question.correct].classList.add('correct');
+                
+                // Show incorrect feedback
+                feedbackElement.innerHTML = `
+                    <div class="feedback-title incorrect">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Incorrect</span>
+                    </div>
+                    <div class="feedback-explanation">
+                        ${question.explanation.incorrect[selectedIndex]}
+                    </div>
+                `;
+            }
+            
+            feedbackElement.classList.add('show');
+            
+            // Update score
+            document.getElementById('quiz-score').textContent = `Score: ${quizScore}`;
+            
+            // Disable next button until next question
+            document.getElementById('quiz-next-btn').disabled = true;
+            
+            // Move to next question or show results
+            setTimeout(() => {
+                currentQuizQuestion++;
+                
+                if (currentQuizQuestion < quizQuestions.length) {
+                    document.getElementById('quiz-progress').textContent = `Question: ${currentQuizQuestion + 1}/${quizQuestions.length}`;
+                    showQuizQuestion();
+                } else {
+                    // Show results
+                    document.getElementById('quiz-final-score').textContent = `${quizScore}/${quizQuestions.length}`;
+                    document.getElementById('quiz-message').textContent = `You answered ${quizScore} out of ${quizQuestions.length} questions correctly!`;
+                    document.getElementById('quiz-results').classList.add('show');
+                    
+                    // Update global score
+                    updateGlobalScore(quizScore * 10);
+                }
+            }, 3000);
+        }
+
+        // Scenario Game Functions
+        let currentScenario = 0;
+        let scenarioScore = 0;
+        const scenarios = [
+            {
+                scenario: "A 25-year-old woman comes to the blood donation center. She mentions she recently returned from a vacation in a malaria-endemic area. What should you do?",
+                choices: [
+                    "Proceed with donation since she looks healthy",
+                    "Ask when she returned and if she had any symptoms",
+                    "Tell her she can't donate for 3 months",
+                    "Refer her to a doctor first"
+                ],
+                correct: 1,
+                feedback: "Correct! Donors who have traveled to malaria-endemic areas should be asked about their travel dates and any symptoms. If they've been symptom-free for 3 months since returning, they may be eligible to donate."
+            },
+            {
+                scenario: "A regular donor with O-negative blood type arrives but his hemoglobin level is 12.3 g/dL. What is the appropriate action?",
+                choices: [
+                    "Proceed with donation since he's a regular donor",
+                    "Ask him to eat iron-rich foods and return next week",
+                    "Defer donation as hemoglobin is below 12.5 g/dL",
+                    "Take a smaller blood sample"
+                ],
+                correct: 2,
+                feedback: "Correct! The minimum hemoglobin level for blood donation is 12.5 g/dL for both men and women to ensure donor safety. Donors with lower levels should be deferred and advised on iron-rich foods."
+            },
+            {
+                scenario: "A first-time donor feels lightheaded and dizzy during donation. What should be your immediate response?",
+                choices: [
+                    "Stop the donation immediately",
+                    "Encourage them to breathe deeply and continue",
+                    "Ask them to squeeze a stress ball harder",
+                    "Give them water and continue slowly"
+                ],
+                correct: 0,
+                feedback: "Correct! If a donor experiences adverse reactions like dizziness, the donation should be stopped immediately for their safety. The donor should be made to lie down with feet elevated."
+            },
+            {
+                scenario: "A potential donor reveals they take medication for high blood pressure. What should you do?",
+                choices: [
+                    "Automatically defer them",
+                    "Ask what medication and if their condition is controlled",
+                    "Tell them to stop medication for a week before donating",
+                    "Proceed with donation if their BP is normal today"
+                ],
+                correct: 1,
+                feedback: "Correct! Many medications for controlled high blood pressure do not prevent donation. It's important to know the specific medication and whether their condition is well-controlled."
+            },
+            {
+                scenario: "A donor who just gave blood asks when they can donate again. What do you tell them?",
+                choices: [
+                    "In 2 weeks",
+                    "In 8 weeks",
+                    "In 6 months",
+                    "Whenever they feel ready"
+                ],
+                correct: 1,
+                feedback: "Correct! Whole blood donors must wait 8 weeks (56 days) between donations to allow their body to replenish red blood cells and iron stores."
+            }
+        ];
+
+        function initializeScenarioGame() {
+            currentScenario = 0;
+            scenarioScore = 0;
+            document.getElementById('scenario-progress').textContent = `Scenario: 1/${scenarios.length}`;
+            document.getElementById('scenario-score').textContent = `Score: 0`;
+            document.getElementById('scenario-results').classList.remove('show');
+            document.getElementById('scenario-next-btn').style.display = 'none';
+            
+            showScenario();
+        }
+
+        function showScenario() {
+            const scenario = scenarios[currentScenario];
+            const scenarioElement = document.getElementById('scenario-text');
+            const choicesElement = document.getElementById('scenario-choices');
+            const feedbackElement = document.getElementById('scenario-feedback');
+            
+            scenarioElement.innerHTML = `<p>${scenario.scenario}</p>`;
+            choicesElement.innerHTML = '';
+            feedbackElement.classList.remove('show');
+            feedbackElement.innerHTML = '';
+            
+            scenario.choices.forEach((choice, index) => {
+                const choiceElement = document.createElement('div');
+                choiceElement.className = 'scenario-choice';
+                choiceElement.innerHTML = `
+                    <span class="me-3">${String.fromCharCode(65 + index)}.</span> ${choice}
+                `;
+                choiceElement.dataset.index = index;
+                
+                choiceElement.addEventListener('click', () => selectScenarioChoice(choiceElement));
+                
+                choicesElement.appendChild(choiceElement);
+            });
+        }
+
+        function selectScenarioChoice(selectedElement) {
+            const scenario = scenarios[currentScenario];
+            const selectedIndex = parseInt(selectedElement.dataset.index);
+            const feedbackElement = document.getElementById('scenario-feedback');
+            
+            // Disable all choices
+            document.querySelectorAll('.scenario-choice').forEach(choice => {
+                choice.style.pointerEvents = 'none';
+            });
+            
+            // Check if answer is correct
+            if (selectedIndex === scenario.correct) {
+                selectedElement.style.borderColor = 'var(--success)';
+                selectedElement.style.background = 'rgba(40, 167, 69, 0.2)';
+                scenarioScore++;
+                feedbackElement.innerHTML = `<div class="text-success"><i class="fas fa-check-circle me-2"></i>${scenario.feedback}</div>`;
+            } else {
+                selectedElement.style.borderColor = 'var(--danger)';
+                selectedElement.style.background = 'rgba(220, 53, 69, 0.2)';
+                // Highlight correct answer
+                document.querySelectorAll('.scenario-choice')[scenario.correct].style.borderColor = 'var(--success)';
+                document.querySelectorAll('.scenario-choice')[scenario.correct].style.background = 'rgba(40, 167, 69, 0.2)';
+                feedbackElement.innerHTML = `<div class="text-danger"><i class="fas fa-times-circle me-2"></i>${scenario.feedback}</div>`;
+            }
+            
+            // Update score
+            document.getElementById('scenario-score').textContent = `Score: ${scenarioScore}`;
+            
+            // Show feedback and next button
+            feedbackElement.classList.add('show');
+            document.getElementById('scenario-next-btn').style.display = 'inline-block';
+        }
+
+        function nextScenario() {
+            currentScenario++;
+            
+            if (currentScenario < scenarios.length) {
+                document.getElementById('scenario-progress').textContent = `Scenario: ${currentScenario + 1}/${scenarios.length}`;
+                showScenario();
+            } else {
+                // Show results
+                document.getElementById('scenario-final-score').textContent = `${scenarioScore}/${scenarios.length}`;
+                document.getElementById('scenario-message').textContent = `You answered ${scenarioScore} out of ${scenarios.length} scenarios correctly!`;
+                document.getElementById('scenario-results').classList.add('show');
+                
+                // Update global score
+                updateGlobalScore(scenarioScore * 20);
+            }
+        }
+
+        // Adventure Game Functions
+        let adventureScore = 0;
+        let adventureDecisions = 0;
+        const adventureStory = {
+            start: {
+                text: "You're a new volunteer at a blood donation center. Your first task is to help with donor registration. A potential donor arrives who is eager to donate but seems nervous. How do you approach them?",
+                choices: [
+                    {
+                        text: "Quickly process them to get through the line faster",
+                        next: "rushed",
+                        score: 0,
+                        feedback: "Rushing through the process can increase donor anxiety. A friendly, reassuring approach is better for first-time donors."
+                    },
+                    {
+                        text: "Greet them warmly and ask if they have any questions",
+                        next: "friendly",
+                        score: 10,
+                        feedback: "Excellent approach! A warm greeting and offering to answer questions helps calm nervous donors and builds trust."
+                    },
+                    {
+                        text: "Hand them the forms and point to the waiting area",
+                        next: "impersonal",
+                        score: 5,
+                        feedback: "While efficient, this impersonal approach may not help calm a nervous donor. A more personal touch is usually better."
+                    }
+                ]
+            },
+            friendly: {
+                text: "The donor appreciates your friendly approach and shares they're nervous about needles. How do you respond?",
+                choices: [
+                    {
+                        text: "Tell them not to worry and that it's quick",
+                        next: "reassuring",
+                        score: 10,
+                        feedback: "Good reassurance! Letting donors know the procedure is quick helps reduce anxiety."
+                    },
+                    {
+                        text: "Explain the process step by step to ease their anxiety",
+                        next: "educational",
+                        score: 15,
+                        feedback: "Perfect! Explaining the process helps donors know what to expect, which significantly reduces needle anxiety."
+                    },
+                    {
+                        text: "Suggest they look away during the needle insertion",
+                        next: "distraction",
+                        score: 5,
+                        feedback: "This can help some donors, but explaining the process usually works better for reducing anxiety."
+                    }
+                ]
+            },
+            educational: {
+                text: "The donor feels more comfortable after your explanation. During the health screening, you discover they recently got a tattoo. What do you do?",
+                choices: [
+                    {
+                        text: "Ignore it since they seem healthy",
+                        next: "negligent",
+                        score: 0,
+                        feedback: "This would be unsafe. Tattoos can potentially transmit bloodborne infections, so proper screening is essential."
+                    },
+                    {
+                        text: "Ask when and where they got the tattoo",
+                        next: "thorough",
+                        score: 15,
+                        feedback: "Correct! You need to determine if the tattoo was done in a regulated facility and how long ago to assess eligibility."
+                    },
+                    {
+                        text: "Automatically defer them for 3 months",
+                        next: "cautious",
+                        score: 10,
+                        feedback: "This is a safe approach, but asking questions first is better as tattoos from regulated facilities may not require deferral."
+                    }
+                ]
+            },
+            thorough: {
+                text: "You learn the tattoo was done at a licensed facility 4 months ago, which meets the requirement. The donor proceeds with donation. After donation, they feel slightly lightheaded. What's your response?",
+                choices: [
+                    {
+                        text: "Tell them it's normal and to rest for a bit",
+                        next: "standard_care",
+                        score: 10,
+                        feedback: "This is appropriate basic care for mild lightheadedness."
+                    },
+                    {
+                        text: "Immediately have them lie down with feet elevated",
+                        next: "proactive_care",
+                        score: 15,
+                        feedback: "Excellent! This is the proper response for post-donation lightheadedness - lying down with feet elevated helps blood flow to the brain."
+                    },
+                    {
+                        text: "Offer them juice and a snack while sitting up",
+                        next: "nutrition_care",
+                        score: 10,
+                        feedback: "Good to offer refreshments, but the donor should lie down first if feeling lightheaded."
+                    }
+                ]
+            },
+            proactive_care: {
+                text: "The donor recovers quickly with your attentive care and thanks you for making their first donation experience positive. They promise to return in 8 weeks!",
+                choices: [
+                    {
+                        text: "Complete your adventure",
+                        next: "end",
+                        score: 20,
+                        feedback: "Well done! You've successfully guided a first-time donor through the process and potentially secured a lifelong donor!"
+                    }
+                ]
+            },
+            end: {
+                text: "Congratulations! You've successfully guided a first-time donor through the blood donation process. Your compassionate and knowledgeable approach has potentially secured a lifelong donor!",
+                choices: []
+            }
+        };
+
+        let currentAdventureNode = "start";
+
+        function initializeAdventureGame() {
+            adventureScore = 0;
+            adventureDecisions = 0;
+            currentAdventureNode = "start";
+            document.getElementById('adventure-progress').textContent = `Decision: 1`;
+            document.getElementById('adventure-score').textContent = `Score: 0`;
+            document.getElementById('adventure-results').classList.remove('show');
+            document.getElementById('adventure-feedback').classList.remove('show');
+            
+            showAdventureNode();
+        }
+
+        function showAdventureNode() {
+            const node = adventureStory[currentAdventureNode];
+            const storyElement = document.getElementById('adventure-story');
+            const choicesElement = document.getElementById('adventure-choices');
+            const feedbackElement = document.getElementById('adventure-feedback');
+            
+            storyElement.innerHTML = `<p>${node.text}</p>`;
+            choicesElement.innerHTML = '';
+            feedbackElement.classList.remove('show');
+            feedbackElement.innerHTML = '';
+            
+            node.choices.forEach((choice, index) => {
+                const choiceElement = document.createElement('div');
+                choiceElement.className = 'adventure-choice';
+                choiceElement.textContent = choice.text;
+                choiceElement.dataset.next = choice.next;
+                choiceElement.dataset.score = choice.score;
+                choiceElement.dataset.feedback = choice.feedback;
+                
+                choiceElement.addEventListener('click', () => selectAdventureChoice(choiceElement));
+                
+                choicesElement.appendChild(choiceElement);
+            });
+        }
+
+        function selectAdventureChoice(selectedElement) {
+            const nextNode = selectedElement.dataset.next;
+            const score = parseInt(selectedElement.dataset.score);
+            const feedback = selectedElement.dataset.feedback;
+            const feedbackElement = document.getElementById('adventure-feedback');
+            
+            adventureScore += score;
+            adventureDecisions++;
+            
+            document.getElementById('adventure-score').textContent = `Score: ${adventureScore}`;
+            document.getElementById('adventure-progress').textContent = `Decision: ${adventureDecisions + 1}`;
+            
+            // Show feedback
+            feedbackElement.innerHTML = `<div class="feedback-explanation">${feedback}</div>`;
+            feedbackElement.classList.add('show');
+            
+            if (nextNode === "end") {
+                setTimeout(() => {
+                    document.getElementById('adventure-final-score').textContent = adventureScore;
+                    document.getElementById('adventure-message').textContent = "You've completed the Plasma Adventure with a score of " + adventureScore + " points!";
+                    document.getElementById('adventure-results').classList.add('show');
+                    
+                    // Update global score
+                    updateGlobalScore(adventureScore);
+                }, 2000);
+            } else {
+                setTimeout(() => {
+                    currentAdventureNode = nextNode;
+                    showAdventureNode();
+                }, 2000);
+            }
+        }
+
+        // Global Score Tracking
+        let totalScore = 0;
+        let gamesCompleted = 0;
+
+        function updateGlobalScore(points) {
+            totalScore += points;
+            gamesCompleted++;
+            
+            document.getElementById('total-score').textContent = `Total Score: ${totalScore}`;
+            document.getElementById('games-completed').textContent = `Games Completed: ${gamesCompleted}/6`;
+        }
+
+        // Video Modal Functions
+        function playScienceVideo() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            
+            video.src = "https://www.youtube.com/embed/0C6U2PZVS24?autoplay=1";
+            modal.style.display = 'block';
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            
+            modal.style.display = 'none';
+            video.src = '';
+        }
+
+        // Utility Functions
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingCells();
+            initializeTypingAnimation();
+            createPlasmaCompositionChart();
+            
+            // Initialize games
+            showGame('game-selection');
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            const scrolled = window.scrollY > 100;
+            
+            navbar.style.background = scrolled ? 'rgba(26, 26, 46, 0.98)' : 'rgba(26, 26, 46, 0.95)';
+            navbar.style.backdropFilter = scrolled ? 'blur(15px)' : 'blur(10px)';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('videoModal');
+            if (e.target === modal) {
+                closeVideoModal();
+            }
+        });
+    </script>
+</body>
+</html>
